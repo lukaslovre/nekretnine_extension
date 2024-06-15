@@ -9,6 +9,17 @@ const personIconSvg = `<svg width="20" height="20" viewBox="0 0 20 20" fill="non
 </defs>
 </svg>`;
 
+const blockIconSvg = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_35_4)">
+<path d="M9.99984 1.66667C5.39984 1.66667 1.6665 5.40001 1.6665 10C1.6665 14.6 5.39984 18.3333 9.99984 18.3333C14.5998 18.3333 18.3332 14.6 18.3332 10C18.3332 5.40001 14.5998 1.66667 9.99984 1.66667ZM3.33317 10C3.33317 6.31667 6.3165 3.33334 9.99984 3.33334C11.5415 3.33334 12.9582 3.85834 14.0832 4.74167L4.7415 14.0833C3.85817 12.9583 3.33317 11.5417 3.33317 10ZM9.99984 16.6667C8.45817 16.6667 7.0415 16.1417 5.9165 15.2583L15.2582 5.91667C16.1415 7.04167 16.6665 8.45834 16.6665 10C16.6665 13.6833 13.6832 16.6667 9.99984 16.6667Z" fill="#F63E02"/>
+</g>
+<defs>
+<clipPath id="clip0_35_4">
+<rect width="20" height="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>`;
+
 const hideNonUserItems = (items) => {
   items.forEach((item) => {
     if (!item.querySelector(".feature--User")) {
@@ -28,12 +39,33 @@ const createSellerLinkElement = (sellerLink, sellerName, sellerNumberOfItems) =>
   sellerLinkElement.href = sellerLink;
   sellerLinkElement.classList.add("seller-link");
   sellerLinkElement.innerHTML = `${personIconSvg}<span>${sellerName} (${sellerNumberOfItems})</span>`;
+  sellerLinkElement.title = `Pogledajte profil korisnika ${sellerName}`;
   return sellerLinkElement;
 };
 
-const appendSellerLinkToItemTitle = (item, sellerLinkElement) => {
+const createSellerBlockElement = (sellerName) => {
+  const blockElement = document.createElement("button");
+  blockElement.classList.add("block-seller-button");
+  blockElement.innerHTML = `${blockIconSvg}`;
+  blockElement.title = `Blokiraj korisnika ${sellerName}`;
+  blockElement.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log(`Blocking seller: ${sellerName}`);
+  });
+
+  return blockElement;
+};
+
+const appendSellerActionsToTitle = (item, sellerLinkElement, sellerBlockElement) => {
   const itemTitle = item.querySelector("h3.entity-title");
-  itemTitle.appendChild(sellerLinkElement);
+
+  // Put the two elements in a container
+  const sellerActionsContainer = document.createElement("div");
+  sellerActionsContainer.classList.add("seller-actions-container");
+  sellerActionsContainer.appendChild(sellerLinkElement);
+  sellerActionsContainer.appendChild(sellerBlockElement);
+
+  itemTitle.appendChild(sellerActionsContainer);
 };
 
 const fetchAndProcessUserPage = async (sellerLink) => {
@@ -62,7 +94,8 @@ const fetchAndProcessItemPage = (item, itemLink) => {
         sellerName,
         sellerNumberOfItems
       );
-      appendSellerLinkToItemTitle(item, sellerLinkElement);
+      const sellerBlockElement = createSellerBlockElement(sellerName);
+      appendSellerActionsToTitle(item, sellerLinkElement, sellerBlockElement);
     });
 };
 

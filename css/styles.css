@@ -100,20 +100,32 @@
         font-weight: 500;
         line-height: 150%;
         margin-bottom: 1rem; }
-      .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title a.seller-link {
-        padding: 0.25rem 0.5rem;
-        border: 1px solid rgba(11, 94, 218, 0.2);
-        border-radius: 0.25rem;
+      .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title .seller-actions-container {
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        width: fit-content;
-        color: #0b5eda;
-        font-size: 0.875rem;
-        font-weight: 600;
-        text-decoration: none; }
-        .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title a.seller-link:hover {
-          background-color: rgba(11, 94, 218, 0.1); }
+        gap: 0.5rem; }
+        .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title .seller-actions-container a.seller-link {
+          padding: 0.25rem 0.5rem;
+          border: 1px solid rgba(11, 94, 218, 0.2);
+          border-radius: 0.25rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          width: fit-content;
+          color: #0b5eda;
+          font-size: 0.875rem;
+          font-weight: 600;
+          text-decoration: none; }
+          .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title .seller-actions-container a.seller-link:hover {
+            background-color: rgba(11, 94, 218, 0.1); }
+        .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title .seller-actions-container button.block-seller-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 0.125rem;
+          background-color: transparent; }
+          .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title .seller-actions-container button.block-seller-button:hover {
+            background-color: rgba(247, 64, 2, 0.1);
+            border-radius: 0.25rem; }
       .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-description {
         color: #404040;
         font-weight: 400;

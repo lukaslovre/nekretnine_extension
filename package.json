@@ -1,8 +1,12 @@
 {
   "scripts": {
-    "scss": "node-sass --watch . -o css"
+    "scss": "node-sass --watch styles.scss -o css"
   },
   "devDependencies": {
     "node-sass": "^9.0.0"
+  },
+  "dependencies": {
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
   }
 }
