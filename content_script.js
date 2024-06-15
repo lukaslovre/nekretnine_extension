@@ -20,6 +20,8 @@ const blockIconSvg = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none
 </defs>
 </svg>`;
 
+const USER_UUID = "2f90cb17-1879-4c35-ba10-98f703bb4d1f";
+
 const hideNonUserItems = (items) => {
   items.forEach((item) => {
     if (!item.querySelector(".feature--User")) {
@@ -51,7 +53,7 @@ const sendSellerNameToBackend = (sellerName) => {
     },
     body: JSON.stringify({
       sellerName,
-      requestComingFromUuid: "2f90cb17-1879-4c35-ba10-98f703bb4d1f",
+      requestComingFromUuid: USER_UUID,
     }),
   })
     .then((response) => response.json())
@@ -96,17 +98,22 @@ const appendSellerActionsToTitle = (item, sellerLinkElement, sellerBlockElement)
 };
 
 const fetchAndProcessUserPage = async (sellerLink) => {
-  const response = await fetch(sellerLink);
-  const html = await response.text();
+  try {
+    const response = await fetch(sellerLink);
+    const html = await response.text();
 
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, "text/html");
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
 
-  const numberOfItems = parseInt(doc.querySelector(".entities-count").textContent);
-  return numberOfItems;
+    const numberOfItems = parseInt(doc.querySelector(".entities-count").textContent);
+    return numberOfItems;
+  } catch (error) {
+    console.error("Error fetching user page:", error);
+    return 0;
+  }
 };
 
-const fetchAndProcessItemPage = (item, itemLink) => {
+const fetchAndProcessItemPage = (item, itemLink, blockedSellers) => {
   fetch(itemLink)
     .then((response) => response.text())
     .then(async (html) => {
@@ -115,6 +122,13 @@ const fetchAndProcessItemPage = (item, itemLink) => {
 
       const sellerLink = doc.querySelector(".ClassifiedDetailOwnerDetails-title a").href;
       const sellerName = getSellerName(sellerLink);
+
+      const isSellerBlocked = blockedSellers.some((seller) => seller.name === sellerName);
+      if (isSellerBlocked) {
+        item.style.display = "none";
+        return;
+      }
+
       const sellerNumberOfItems = await fetchAndProcessUserPage(sellerLink);
       const sellerLinkElement = createSellerLinkElement(
         sellerLink,
@@ -126,17 +140,37 @@ const fetchAndProcessItemPage = (item, itemLink) => {
     });
 };
 
-const processItems = (items) => {
+const getBlockedUsers = async (blockedByUuid) => {
+  const url = new URL("http://localhost:3000/blocked-users");
+  url.searchParams.append("blockedByUuid", blockedByUuid);
+
+  try {
+    const response = await fetch(url);
+    const { blockedSellers } = await response.json();
+
+    return blockedSellers;
+  } catch (error) {
+    console.error("Error getting blocked users:", error);
+    return [];
+  }
+};
+
+const processItems = async (items) => {
   hideNonUserItems(items);
+
+  const blockedSellers = await getBlockedUsers(USER_UUID);
+  console.log(`Api returned ${blockedSellers.length} blocked sellers.`);
+
   items.forEach((item) => {
     if (item.style.display !== "none") {
       const itemTitle = item.querySelector("h3.entity-title");
       const itemLink = itemTitle.querySelector("a.link").href;
-      fetchAndProcessItemPage(item, itemLink);
+      fetchAndProcessItemPage(item, itemLink, blockedSellers);
     }
   });
 };
 
 const items = document.querySelectorAll("li.EntityList-item");
-console.log(items.length);
+console.log(`Found ${items.length} items total.`);
+
 processItems(items);
