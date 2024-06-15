@@ -43,6 +43,33 @@ const createSellerLinkElement = (sellerLink, sellerName, sellerNumberOfItems) =>
   return sellerLinkElement;
 };
 
+const sendSellerNameToBackend = (sellerName) => {
+  fetch("http://localhost:3000/block-user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      sellerName,
+      requestComingFromUuid: "2f90cb17-1879-4c35-ba10-98f703bb4d1f",
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        alert(data.error);
+      } else {
+        alert(data.message);
+      }
+    })
+    .catch((error) => {
+      alert(
+        "Došlo je do greške prilikom blokiranja korisnika. (Pogledajte konzolu za više informacija)"
+      );
+      console.error("Error blocking seller:", error);
+    });
+};
+
 const createSellerBlockElement = (sellerName) => {
   const blockElement = document.createElement("button");
   blockElement.classList.add("block-seller-button");
@@ -50,7 +77,7 @@ const createSellerBlockElement = (sellerName) => {
   blockElement.title = `Blokiraj korisnika ${sellerName}`;
   blockElement.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(`Blocking seller: ${sellerName}`);
+    sendSellerNameToBackend(sellerName);
   });
 
   return blockElement;
