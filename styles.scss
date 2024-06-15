@@ -1,0 +1,222 @@
+$font-family: "Inter", sans-serif;
+$background-color-light: #f2f2f2;
+$background-color-dark: #e6e6e6;
+$border-color: #ccc;
+$focus-color: #0b5eda;
+$active-color: #fdcd00;
+$text-color: #1a1a1a;
+$box-shadow-color: rgba(0, 0, 0, 0.075);
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+* {
+  font-family: $font-family !important;
+}
+
+.wrap-main {
+  background-color: $background-color-dark;
+}
+
+#form_browse_detailed_search-filter-block {
+  input,
+  select,
+  .selectr-selected {
+    background-color: #fff;
+    border: 1px solid $border-color;
+    box-shadow: none;
+
+    &:focus {
+      border-color: $focus-color;
+      box-shadow: none;
+    }
+  }
+}
+
+.content-main {
+  border-color: $border-color !important;
+
+  .block-standard--epsilon {
+    background-color: $background-color-light;
+    border: 1px solid $border-color;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem $box-shadow-color;
+
+    // Pagination
+    .PaginationContainer--top {
+      background-color: $background-color-light;
+      border-radius: 0.5rem 0.5rem 0 0;
+      box-shadow: none;
+      padding: 1.5rem 0;
+
+      .Pagination-items {
+        button.Pagination-link {
+          background-color: #fff;
+          color: $text-color;
+          font-weight: 700;
+          padding: 0.75rem 1.25rem;
+          border: 1px solid $border-color;
+          border-right: none;
+
+          &.is-active {
+            background-color: $active-color;
+            color: #000;
+          }
+        }
+
+        .Pagination-item {
+          &:first-child {
+            button.Pagination-link {
+              border-radius: 0.5rem 0 0 0.5rem;
+            }
+          }
+
+          &:last-child {
+            button.Pagination-link {
+              border-right: 1px solid $border-color;
+              border-radius: 0 0.5rem 0.5rem 0;
+            }
+          }
+        }
+      }
+    }
+    .PaginationContainer--bottom {
+      background-color: $background-color-light;
+      border-radius: 0 0 0.5rem 0.5rem;
+      box-shadow: none;
+      padding: 1.5rem 0;
+
+      .Pagination-items {
+        button.Pagination-link {
+          background-color: #fff;
+          color: $text-color;
+          font-weight: 700;
+          padding: 0.75rem 1.25rem;
+          border: 1px solid $border-color;
+          border-right: none;
+
+          &.is-active {
+            background-color: $active-color;
+            color: #000;
+          }
+        }
+
+        .Pagination-item {
+          &:first-child {
+            button.Pagination-link {
+              border-radius: 0.5rem 0 0 0.5rem;
+            }
+          }
+
+          &:last-child {
+            button.Pagination-link {
+              border-right: 1px solid $border-color;
+              border-radius: 0 0.5rem 0.5rem 0;
+            }
+          }
+        }
+      }
+    }
+
+    // Entity list (xxx oglasa i sortiranje)
+    .entity-list-header {
+      padding: 1rem;
+      background-color: $background-color-light;
+
+      .entity-list-meta {
+        color: $text-color;
+        font-size: 0.875rem;
+      }
+
+      select#sort {
+        background-color: #fff;
+        border: 1px solid $border-color;
+        box-shadow: none;
+
+        &:focus {
+          border-color: $focus-color;
+          box-shadow: none;
+        }
+      }
+    }
+
+    .EntityListMapTeaser .EntityListMapTeaser--text {
+      color: #f2f2f2;
+    }
+
+    .EntityListMapTeaser::before {
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+      width: 100%;
+    }
+
+    .EntityList-groupTitle {
+      background-color: $background-color-light;
+      padding: 1rem;
+    }
+
+    .EntityList-items {
+      .EntityList-item {
+        background-color: #fafafa;
+        border: none !important;
+        border-top: 1px solid $border-color !important;
+        padding: 1rem 1.5rem;
+
+        &:nth-child(even) {
+          background-color: #fff;
+        }
+
+        article.entity-body {
+          .entity-thumbnail img {
+            border: 1px solid $border-color;
+            border-radius: 0.25rem;
+          }
+
+          .entity-title {
+            a.link {
+              color: $text-color;
+              font-weight: 500;
+              line-height: 150%;
+              margin-bottom: 1rem;
+            }
+
+            a.seller-link {
+              padding: 0.25rem 0.5rem;
+              border: 1px solid hsla(216, 90%, 45%, 0.2);
+              border-radius: 0.25rem;
+
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              width: fit-content;
+
+              color: #0b5eda;
+              font-size: 0.875rem;
+              font-weight: 600;
+              text-decoration: none;
+
+              &:hover {
+                background-color: hsla(216, 90%, 45%, 0.1);
+              }
+            }
+          }
+
+          .entity-description {
+            color: #404040;
+            font-weight: 400;
+            line-height: 150%;
+          }
+
+          .entity-pub-date {
+            color: #808080;
+            font-weight: 400;
+            line-height: 150%;
+          }
+
+          .price {
+            font-weight: 700;
+            color: #067927;
+          }
+        }
+      }
+    }
+  }
+}

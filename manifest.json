@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Njuškalo nekretnine",
+  "version": "1.0",
+  "description": "Ovaj dodatak za preglednike filtrira oglase na Njuškalu kako bi prikazivao samo oglase od pojedinačnih prodavača.",
+  "icons": {
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.njuskalo.hr/*"],
+      "js": ["content_script.js"],
+      "css": ["css/styles.css"]
+    }
+  ],
+  "permissions": ["activeTab", "scripting"]
+}

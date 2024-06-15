@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+* {
+  font-family: "Inter", sans-serif !important; }
+
+.wrap-main {
+  background-color: #e6e6e6; }
+
+#form_browse_detailed_search-filter-block input,
+#form_browse_detailed_search-filter-block select,
+#form_browse_detailed_search-filter-block .selectr-selected {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: none; }
+  #form_browse_detailed_search-filter-block input:focus,
+  #form_browse_detailed_search-filter-block select:focus,
+  #form_browse_detailed_search-filter-block .selectr-selected:focus {
+    border-color: #0b5eda;
+    box-shadow: none; }
+
+.content-main {
+  border-color: #ccc !important; }
+  .content-main .block-standard--epsilon {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.075); }
+    .content-main .block-standard--epsilon .PaginationContainer--top {
+      background-color: #f2f2f2;
+      border-radius: 0.5rem 0.5rem 0 0;
+      box-shadow: none;
+      padding: 1.5rem 0; }
+      .content-main .block-standard--epsilon .PaginationContainer--top .Pagination-items button.Pagination-link {
+        background-color: #fff;
+        color: #1a1a1a;
+        font-weight: 700;
+        padding: 0.75rem 1.25rem;
+        border: 1px solid #ccc;
+        border-right: none; }
+        .content-main .block-standard--epsilon .PaginationContainer--top .Pagination-items button.Pagination-link.is-active {
+          background-color: #fdcd00;
+          color: #000; }
+      .content-main .block-standard--epsilon .PaginationContainer--top .Pagination-items .Pagination-item:first-child button.Pagination-link {
+        border-radius: 0.5rem 0 0 0.5rem; }
+      .content-main .block-standard--epsilon .PaginationContainer--top .Pagination-items .Pagination-item:last-child button.Pagination-link {
+        border-right: 1px solid #ccc;
+        border-radius: 0 0.5rem 0.5rem 0; }
+    .content-main .block-standard--epsilon .PaginationContainer--bottom {
+      background-color: #f2f2f2;
+      border-radius: 0 0 0.5rem 0.5rem;
+      box-shadow: none;
+      padding: 1.5rem 0; }
+      .content-main .block-standard--epsilon .PaginationContainer--bottom .Pagination-items button.Pagination-link {
+        background-color: #fff;
+        color: #1a1a1a;
+        font-weight: 700;
+        padding: 0.75rem 1.25rem;
+        border: 1px solid #ccc;
+        border-right: none; }
+        .content-main .block-standard--epsilon .PaginationContainer--bottom .Pagination-items button.Pagination-link.is-active {
+          background-color: #fdcd00;
+          color: #000; }
+      .content-main .block-standard--epsilon .PaginationContainer--bottom .Pagination-items .Pagination-item:first-child button.Pagination-link {
+        border-radius: 0.5rem 0 0 0.5rem; }
+      .content-main .block-standard--epsilon .PaginationContainer--bottom .Pagination-items .Pagination-item:last-child button.Pagination-link {
+        border-right: 1px solid #ccc;
+        border-radius: 0 0.5rem 0.5rem 0; }
+    .content-main .block-standard--epsilon .entity-list-header {
+      padding: 1rem;
+      background-color: #f2f2f2; }
+      .content-main .block-standard--epsilon .entity-list-header .entity-list-meta {
+        color: #1a1a1a;
+        font-size: 0.875rem; }
+      .content-main .block-standard--epsilon .entity-list-header select#sort {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: none; }
+        .content-main .block-standard--epsilon .entity-list-header select#sort:focus {
+          border-color: #0b5eda;
+          box-shadow: none; }
+    .content-main .block-standard--epsilon .EntityListMapTeaser .EntityListMapTeaser--text {
+      color: #f2f2f2; }
+    .content-main .block-standard--epsilon .EntityListMapTeaser::before {
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+      width: 100%; }
+    .content-main .block-standard--epsilon .EntityList-groupTitle {
+      background-color: #f2f2f2;
+      padding: 1rem; }
+    .content-main .block-standard--epsilon .EntityList-items .EntityList-item {
+      background-color: #fafafa;
+      border: none !important;
+      border-top: 1px solid #ccc !important;
+      padding: 1rem 1.5rem; }
+      .content-main .block-standard--epsilon .EntityList-items .EntityList-item:nth-child(even) {
+        background-color: #fff; }
+      .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-thumbnail img {
+        border: 1px solid #ccc;
+        border-radius: 0.25rem; }
+      .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title a.link {
+        color: #1a1a1a;
+        font-weight: 500;
+        line-height: 150%;
+        margin-bottom: 1rem; }
+      .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title a.seller-link {
+        padding: 0.25rem 0.5rem;
+        border: 1px solid rgba(11, 94, 218, 0.2);
+        border-radius: 0.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: fit-content;
+        color: #0b5eda;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none; }
+        .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-title a.seller-link:hover {
+          background-color: rgba(11, 94, 218, 0.1); }
+      .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-description {
+        color: #404040;
+        font-weight: 400;
+        line-height: 150%; }
+      .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .entity-pub-date {
+        color: #808080;
+        font-weight: 400;
+        line-height: 150%; }
+      .content-main .block-standard--epsilon .EntityList-items .EntityList-item article.entity-body .price {
+        font-weight: 700;
+        color: #067927; }
