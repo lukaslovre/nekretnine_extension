@@ -12,6 +12,11 @@
       "matches": ["*://*.njuskalo.hr/*"],
       "js": ["content_script.js"],
       "css": ["css/styles.css"]
+    },
+    {
+      "matches": ["*://*.index.hr/oglasi/nekretnine/*"],
+      "js": ["content_script_indexOglasi.js"],
+      "css": ["css/indexOglasi_styles.css"]
     }
   ],
   "permissions": ["activeTab", "scripting"]
