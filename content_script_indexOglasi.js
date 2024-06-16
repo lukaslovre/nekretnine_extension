@@ -1,5 +1,5 @@
 const USER_UUID = "2f90cb17-1879-4c35-ba10-98f703bb4d1f";
-const API_URL = "http://49.13.64.0:3003";
+const API_URL = "http://49.13.64.0:3100";
 
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   // Get the data about every ad
