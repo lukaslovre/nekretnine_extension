@@ -1,3 +1,39 @@
-// * {
-//   font-weight: 700 !important;
-// }
+.seller-actions-container {
+  display: flex;
+  gap: 0.5rem;
+
+  a.seller-link {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid hsla(216, 90%, 45%, 0.2);
+    border-radius: 0.25rem;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+
+    color: #0b5eda;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      background-color: hsla(216, 90%, 45%, 0.1);
+    }
+  }
+
+  button.block-seller-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.125rem;
+    border: none;
+
+    background-color: transparent;
+
+    &:hover {
+      background-color: hsla(15, 98%, 49%, 0.1);
+      border-radius: 0.25rem;
+    }
+  }
+}
