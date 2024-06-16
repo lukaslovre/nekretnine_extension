@@ -12,6 +12,9 @@ app.use(cors());
 // Middleware for parsing JSON bodies
 app.use(express.json());
 
+// make the base route be /nekretnine/api
+app.use("/nekretnine/api", app);
+
 app.get("/", (req, res) => res.send("Hello, world!"));
 
 app.get("/blocked-users", async (req, res) => {
