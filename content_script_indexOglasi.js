@@ -39,11 +39,16 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     if (itemResult) {
       console.log(itemResult);
 
-      // Const some deeper element of the item
-      const farChild = item.childNodes[0]?.childNodes[0]?.childNodes[1]?.childNodes[0];
+      // If legalEntity == 2, style.display = "none"
+      if (itemResult.legalEntity === 2) {
+        item.style.display = "none";
+      } else {
+        // Const some deeper element of the item
+        const farChild = item.childNodes[0]?.childNodes[0]?.childNodes[1]?.childNodes[0];
 
-      if (farChild) {
-        farChild.appendChild(generateSellerElement(itemResult));
+        if (farChild) {
+          farChild.appendChild(generateSellerElement(itemResult));
+        }
       }
     } else {
       console.log(`No result found for ${ElementTitle}`);
