@@ -46,7 +46,7 @@ const createSellerLinkElement = (sellerLink, sellerName, sellerNumberOfItems) =>
 };
 
 const sendSellerNameToBackend = (sellerName) => {
-  fetch("http://localhost:3000/block-user", {
+  fetch(`${API_URL}/block-user`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const fetchAndProcessItemPage = (item, itemLink, blockedSellers) => {
 };
 
 const getBlockedUsers = async (blockedByUuid) => {
-  const url = new URL("http://localhost:3000/blocked-users");
+  const url = new URL(`${API_URL}/blocked-users`);
   url.searchParams.append("blockedByUuid", blockedByUuid);
   url.searchParams.append("website", "njuskalo.hr");
 

@@ -1,4 +1,5 @@
 const USER_UUID = "2f90cb17-1879-4c35-ba10-98f703bb4d1f";
+const API_URL = "http://49.13.64.0:3000";
 
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   // Get the data about every ad
@@ -116,7 +117,7 @@ function generateSellerElement(data) {
 }
 
 function sendSellerNameToBackend(sellerName) {
-  fetch("http://localhost:3000/block-user", {
+  fetch(`${API_URL}/block-user`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -144,7 +145,7 @@ function sendSellerNameToBackend(sellerName) {
 }
 
 async function getBlockedUsers(blockedByUuid) {
-  const url = new URL("http://localhost:3000/blocked-users");
+  const url = new URL(`${API_URL}/blocked-users`);
   url.searchParams.append("blockedByUuid", blockedByUuid);
   url.searchParams.append("website", "index.hr");
 
