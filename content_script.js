@@ -21,7 +21,7 @@ const blockIconSvg = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none
 </svg>`;
 
 const USER_UUID = "2f90cb17-1879-4c35-ba10-98f703bb4d1f";
-const API_URL = "https://49.13.64.0/nekretnine/api";
+const API_URL = "https://arhocoaches.com/nekretnine/api";
 
 const hideNonUserItems = (items) => {
   items.forEach((item) => {
