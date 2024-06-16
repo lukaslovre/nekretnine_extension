@@ -12,12 +12,9 @@ app.use(cors());
 // Middleware for parsing JSON bodies
 app.use(express.json());
 
-// make the base route be /nekretnine/api
-app.use("/nekretnine/api", app);
+app.get("/nekretnine/api", (req, res) => res.send("Hello, world!"));
 
-app.get("/", (req, res) => res.send("Hello, world!"));
-
-app.get("/blocked-users", async (req, res) => {
+app.get("/nekretnine/api/blocked-users", async (req, res) => {
   // Get uuid from request query
   const { blockedByUuid, website } = req.query;
 
@@ -26,7 +23,7 @@ app.get("/blocked-users", async (req, res) => {
   return res.status(200).json({ blockedSellers });
 });
 
-app.post("/block-user", async (req, res) => {
+app.post("/nekretnine/api/block-user", async (req, res) => {
   console.log("Request body: ", req.body);
 
   const { sellerName, requestComingFromUuid, website } = req.body;
