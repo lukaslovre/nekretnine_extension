@@ -52,6 +52,7 @@ const sendSellerNameToBackend = (sellerName) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      website: "njuskalo.hr",
       sellerName,
       requestComingFromUuid: USER_UUID,
     }),
@@ -143,6 +144,7 @@ const fetchAndProcessItemPage = (item, itemLink, blockedSellers) => {
 const getBlockedUsers = async (blockedByUuid) => {
   const url = new URL("http://localhost:3000/blocked-users");
   url.searchParams.append("blockedByUuid", blockedByUuid);
+  url.searchParams.append("website", "njuskalo.hr");
 
   try {
     const response = await fetch(url);

@@ -16,9 +16,9 @@ app.get("/", (req, res) => res.send("Hello, world!"));
 
 app.get("/blocked-users", async (req, res) => {
   // Get uuid from request query
-  const { blockedByUuid } = req.query;
+  const { blockedByUuid, website } = req.query;
 
-  const blockedSellers = await getBlockedSellers(blockedByUuid);
+  const blockedSellers = await getBlockedSellers(blockedByUuid, website);
 
   return res.status(200).json({ blockedSellers });
 });
@@ -26,16 +26,16 @@ app.get("/blocked-users", async (req, res) => {
 app.post("/block-user", async (req, res) => {
   console.log("Request body: ", req.body);
 
-  const { sellerName, requestComingFromUuid } = req.body;
+  const { sellerName, requestComingFromUuid, website } = req.body;
 
   // Check for required parameters
-  if (!sellerName || !requestComingFromUuid) {
+  if (!sellerName || !requestComingFromUuid || !website) {
     return res.status(400).json({ error: "Missing required parameters." });
   }
 
   try {
     // Add the seller to the database
-    const success = await addSellerToDatabase(sellerName, requestComingFromUuid);
+    const success = await addSellerToDatabase(sellerName, requestComingFromUuid, website);
 
     if (!success) throw new Error("Error adding seller to the database. (success=false)");
 

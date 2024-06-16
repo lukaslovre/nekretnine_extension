@@ -11,12 +11,12 @@ async function handleIndividualFetchData(link) {
 
 // Function to handle fetch data
 async function handleFetchData(data) {
-  console.log("Data response from fetch: ");
-  console.log(data);
+  // console.log("Data response from fetch: ");
+  // console.log(data);
 
   const apiLinks = data.data.map((item) => `${SINGLE_AD_URL}code=${item.code}&format=1`);
-  console.log("API Links: ");
-  console.log(apiLinks);
+  // console.log("API Links: ");
+  // console.log(apiLinks);
 
   // Use Promise.all to fetch all links concurrently
   const responses = await Promise.all(apiLinks.map(handleIndividualFetchData));
@@ -24,6 +24,8 @@ async function handleFetchData(data) {
   const results = responses
     .map((result) => {
       if (!result.data[0]) return null;
+
+      // console.log(result);
 
       return {
         legalEntity: result.data[0].legalEntity,
@@ -34,8 +36,8 @@ async function handleFetchData(data) {
     })
     .filter((result) => result !== null);
 
-  console.log("Results: ");
-  console.log(results);
+  // console.log("Results: ");
+  // console.log(results);
 
   sendMessageToContentScript(results);
 }
@@ -49,8 +51,8 @@ async function onCompleted(details) {
   if (details.url.startsWith(SINGLE_AD_URL) || details.url.startsWith(UPDATE_VIEW_URL))
     return;
 
-  console.log("Request completed: ");
-  console.log(details);
+  // console.log("Request completed: ");
+  // console.log(details);
 
   // Make the fetch myself
   const response = await fetch(details.url);

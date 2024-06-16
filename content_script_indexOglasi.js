@@ -1,6 +1,15 @@
+const USER_UUID = "2f90cb17-1879-4c35-ba10-98f703bb4d1f";
+
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+  // Get the data about every ad
   const results = request.results;
   console.log(results);
+
+  // Get list of manually blocked sellers
+  const blockedSellers = await getBlockedUsers(USER_UUID);
+  console.log(`Api returned ${blockedSellers.length} blocked sellers.`);
+
+  const blockedSellersNames = blockedSellers.map((seller) => seller.name);
 
   let items;
   let attempts = 0;
@@ -10,12 +19,10 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
     if (items.length > 0) {
       // Check if the first items exists in the results
-      const firstItem = items[0].attributes["title"]?.value.trim().toLowerCase();
+      const firstItem = items[0].attributes["title"]?.value;
       console.log("First item:", firstItem);
 
-      const firstResult = results.find(
-        (result) => result.title.toLowerCase() === firstItem
-      );
+      const firstResult = results.find((result) => result.title === firstItem);
 
       if (firstResult) break;
     }
@@ -29,20 +36,21 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   // Iterate over all items
   items.forEach((item) => {
     // get the title of the item
-    const ElementTitle = item.attributes["title"]?.value.trim().toLowerCase();
+    const ElementTitle = item.attributes["title"]?.value;
 
     // Find the result that matches the title
-    const itemResult = results.find(
-      (result) => result.title.toLowerCase() === ElementTitle
-    );
+    const itemResult = results.find((result) => result.title === ElementTitle);
 
     if (itemResult) {
-      console.log(itemResult);
+      //   console.log(itemResult);
 
       // If legalEntity == 2, style.display = "none"
       if (itemResult.legalEntity === 2) {
         item.style.display = "none";
+      } else if (blockedSellersNames.includes(itemResult.user.username)) {
+        item.style.display = "none";
       } else {
+        // Else, show the item and add the custom seller element
         // Const some deeper element of the item
         const farChild = item.childNodes[0]?.childNodes[0]?.childNodes[1]?.childNodes[0];
 
@@ -79,14 +87,11 @@ function generateSellerElement(data) {
     </defs>
     </svg>`;
 
-  // For testing
-  const sellerNumberOfItems = 0;
-
   // Create seller link element
   const sellerLinkElement = document.createElement("a");
   //   sellerLinkElement.href = sellerLink;
   sellerLinkElement.classList.add("seller-link");
-  sellerLinkElement.innerHTML = `${personIconSvg}<span>${data.user.username} (${sellerNumberOfItems}) - ${data.legalEntity}</span>`;
+  sellerLinkElement.innerHTML = `${personIconSvg}<span>${data.user.username}</span>`;
   sellerLinkElement.title = `Pogledajte profil korisnika ${data.user.username}`;
 
   // Create block user element
@@ -96,8 +101,7 @@ function generateSellerElement(data) {
   sellerBlockElement.title = `Blokiraj korisnika ${data.user.username}`;
   sellerBlockElement.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(`Block user ${data.user.username}`);
-    // sendSellerNameToBackend(sellerName);
+    sendSellerNameToBackend(data.user.username);
   });
 
   // Put the two elements in a container
@@ -109,4 +113,48 @@ function generateSellerElement(data) {
   return sellerActionsContainer;
 
   //   newElement.textContent = `Legal entity: ${data.legalEntity}. User: ${data.user.username}. Title: ${data.title}.`;
+}
+
+function sendSellerNameToBackend(sellerName) {
+  fetch("http://localhost:3000/block-user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      website: "index.hr",
+      sellerName,
+      requestComingFromUuid: USER_UUID,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        alert(data.error);
+      } else {
+        alert(data.message);
+      }
+    })
+    .catch((error) => {
+      alert(
+        "Došlo je do greške prilikom blokiranja korisnika. (Pogledajte konzolu za više informacija)"
+      );
+      console.error("Error blocking seller:", error);
+    });
+}
+
+async function getBlockedUsers(blockedByUuid) {
+  const url = new URL("http://localhost:3000/blocked-users");
+  url.searchParams.append("blockedByUuid", blockedByUuid);
+  url.searchParams.append("website", "index.hr");
+
+  try {
+    const response = await fetch(url);
+    const { blockedSellers } = await response.json();
+
+    return blockedSellers;
+  } catch (error) {
+    console.error("Error getting blocked users:", error);
+    return [];
+  }
 }

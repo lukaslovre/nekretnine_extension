@@ -27,13 +27,18 @@ const BlockedSeller = sequelize.define("BlockedSeller", {
     type: DataTypes.UUID,
     allowNull: false,
   },
+  website: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "njuskalo.hr",
+  },
 });
 
 // Synchronize the models with the database
 (async () => {
   try {
     // {alter:true}
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
     console.log("All models were synchronized successfully.");
   } catch (error) {
     console.error("Unable to synchronize the models with the database:", error);
